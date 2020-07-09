@@ -25,10 +25,7 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         cameraMain = GetComponent<Camera>();
-    }
 
-    void Update()
-    {
         wallsTilemap.CompressBounds();
         layer1Tilemap.CompressBounds();
         layer2Tilemap.CompressBounds();
