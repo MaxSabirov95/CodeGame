@@ -23,10 +23,6 @@ public class GameManager : MonoBehaviour {
         Swap(swap);
     }
 
-    void Update() {
-        if (Input.GetKeyDown(KeyCode.Space)) { Swap(); }
-    }
-
     void Swap(bool swapValue) {
         swap = swapValue;
         trapsLayer1.gameObject.SetActive(swap);
