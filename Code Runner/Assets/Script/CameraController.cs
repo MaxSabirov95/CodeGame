@@ -7,6 +7,12 @@ using UnityEngine.Tilemaps;
 [ExecuteInEditMode]
 public class CameraController : MonoBehaviour
 {
+    [Range(0,10)]
+    [SerializeField]
+    float borderSizeX;
+    [Range(0, 10)]
+    [SerializeField]
+    float borderSizeY;
     Camera cameraMain;
     Rect cameraRect;
 
@@ -25,10 +31,9 @@ public class CameraController : MonoBehaviour
         cameraRect.min = wallsBounds.min;
         cameraRect.max = wallsBounds.max;
         cameraMain.transform.position = (Vector3)cameraRect.center + Vector3.back;
-        Debug.Log((cameraRect.height,cameraRect.width));
-        cameraMain.orthographicSize = Mathf.Max(cameraRect.height/2,(cameraRect.width*0.5f)/cameraMain.aspect);
+        cameraMain.orthographicSize = Mathf.Max((cameraRect.height + borderSizeY)/2,((cameraRect.width+ borderSizeX)/2)/cameraMain.aspect);
 
-        Debug.DrawLine(wallsBounds.min, wallsBounds.max);
+        //Debug.DrawLine(wallsBounds.min, wallsBounds.max);
     }
 
     Bounds GetBounds(Tilemap tilemap) {
