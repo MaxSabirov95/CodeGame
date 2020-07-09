@@ -27,11 +27,6 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         cameraMain = GetComponent<Camera>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
         wallsTilemap.CompressBounds();
         layer1Tilemap.CompressBounds();
         layer2Tilemap.CompressBounds();
@@ -47,8 +42,12 @@ public class CameraController : MonoBehaviour
         cameraRect.max = maxCorner;
         cameraMain.transform.position = (Vector3)cameraRect.center + Vector3.back;
         cameraMain.orthographicSize = cameraRect.width / 2;
+    }
 
-        Debug.DrawLine(minCorner, maxCorner);
+    // Update is called once per frame
+    void Update()
+    {
+
     }
 
     Bounds GetBounds(Tilemap tilemap) {
