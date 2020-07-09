@@ -22,14 +22,11 @@ public class CameraController : MonoBehaviour
     Tilemap layer2Tilemap;
     Bounds layer2Bounds;
 
-
-    // Start is called before the first frame update
     void Start()
     {
         cameraMain = GetComponent<Camera>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         wallsTilemap.CompressBounds();
@@ -57,8 +54,5 @@ public class CameraController : MonoBehaviour
         bounds.min = tilemap.gameObject.transform.TransformPoint(tempBounds.min) + (Vector3)Vector2.one*0.5f;
         bounds.max = tilemap.gameObject.transform.TransformPoint(tempBounds.max) + (Vector3)Vector2.one * 0.5f;
         return bounds;
-
     }
-
-
 }

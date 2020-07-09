@@ -12,12 +12,10 @@ public class GameManager : MonoBehaviour {
 
     bool swap = true;
 
-
-
     private void Awake() {
         BlackBoard.gameManager = this;
     }
-    // Start is called before the first frame update
+
     void Start() {
         trapsLayer1 = GameObject.FindGameObjectWithTag("Layer1").GetComponent<Tilemap>();
         trapsLayer2 = GameObject.FindGameObjectWithTag("Layer2").GetComponent<Tilemap>();
@@ -25,7 +23,6 @@ public class GameManager : MonoBehaviour {
         Swap(swap);
     }
 
-    // Update is called once per frame
     void Update() {
         if (Input.GetKeyDown(KeyCode.Space)) { Swap(); }
     }
