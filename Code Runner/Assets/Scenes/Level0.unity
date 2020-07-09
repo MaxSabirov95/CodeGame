@@ -510,9 +510,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 762a8e6edbe742d48989e8eb59d68f32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  borderSizeX: 0
+  borderSizeY: 0
   wallsTilemap: {fileID: 8822295728522066777}
-  layer1Tilemap: {fileID: 8822295728399582955}
-  layer2Tilemap: {fileID: 8822295728381779282}
 --- !u!20 &8822295727691262103
 Camera:
   m_ObjectHideFlags: 0
@@ -535,12 +535,12 @@ Camera:
     x: -3
     y: -2
     width: 12
-    height: 11
+    height: 12
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 163
   orthographic: 1
-  orthographic size: 4.5
+  orthographic size: 3.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -632,7 +632,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87d853a2e2b37f146a6a1bc44757e4e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeMovement: 0.5
+  timeMovement: 0.3
 --- !u!1 &8822295727806124975
 GameObject:
   m_ObjectHideFlags: 0
