@@ -25,9 +25,10 @@ public class CameraController : MonoBehaviour
         cameraRect.min = wallsBounds.min;
         cameraRect.max = wallsBounds.max;
         cameraMain.transform.position = (Vector3)cameraRect.center + Vector3.back;
-        cameraMain.orthographicSize = Mathf.Max(cameraRect.width / 2, cameraRect.height / 2);
+        Debug.Log((cameraRect.height,cameraRect.width));
+        cameraMain.orthographicSize = Mathf.Max(cameraRect.height/2,(cameraRect.width*0.5f)/cameraMain.aspect);
 
-        //Debug.DrawLine(minCorner, maxCorner);
+        Debug.DrawLine(wallsBounds.min, wallsBounds.max);
     }
 
     Bounds GetBounds(Tilemap tilemap) {
