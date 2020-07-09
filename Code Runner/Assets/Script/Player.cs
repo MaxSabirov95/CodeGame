@@ -4,13 +4,14 @@ using UnityEngine;
 public class Player : MonoBehaviour {
     public float timeMovement;
     Vector2Int targetPosition;
+    bool canMove=true;
 
     void Update() {
         Vector2 input = new Vector2((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow) ? 1 : 0)
                                   - (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow) ? 1 : 0),
                                     (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) ? 1 : 0)
                                   - (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow) ? 1 : 0));
-        if (input != Vector2.zero) {
+        if ((input != Vector2.zero) && (canMove)) {
             targetPosition = VectorToInt(new Vector2(transform.position.x + input.x, transform.position.y + input.y));
             if (checkWall(targetPosition) && transform.position == VectorToInt(transform.position)) {
                 MoveToPosition();
@@ -19,7 +20,8 @@ public class Player : MonoBehaviour {
     }
 
     void MoveToPosition() {
-        iTween.MoveTo(gameObject, (Vector2)targetPosition, timeMovement);
+        //iTween.MoveTo(gameObject, (Vector2)targetPosition, timeMovement);
+        LeanTween.move(gameObject, (Vector2)targetPosition, timeMovement);
         BlackBoard.gameManager.Swap();
         StartCoroutine(timeMove());
     }
@@ -37,10 +39,12 @@ public class Player : MonoBehaviour {
     }
 
     IEnumerator timeMove() {
+        canMove = false;
         yield return new WaitForSeconds(timeMovement);
         if (checkTrap(targetPosition)) {
             BlackBoard.gameManager.ReloadScene();
         }
+        canMove = true;
     }
 
     Vector3Int VectorToInt(Vector3 vector) {
