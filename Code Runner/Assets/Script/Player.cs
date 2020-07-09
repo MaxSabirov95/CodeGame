@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     public float timeMovement;
     GameObject[] walls;
     GameObject[] traps;
-    Vector2 tragetPosition;
+    Vector2 targetPosition;
 
     private void Awake()
     {
@@ -24,35 +24,10 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            tragetPosition = new Vector2(transform.position.x + 1f, transform.position.y);
-            if (checkWall(tragetPosition) && transform.position == new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y),0))
-            {
-                MoveToPosition();
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            tragetPosition = new Vector2(transform.position.x - 1f, transform.position.y);
-            if (checkWall(tragetPosition) && transform.position == new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y), 0))
-            {
-                MoveToPosition();
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            tragetPosition = new Vector2(transform.position.x, transform.position.y + 1f);
-            if (checkWall(tragetPosition) && transform.position == new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y), 0))
-            {
-                MoveToPosition();
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            tragetPosition = new Vector2(transform.position.x, transform.position.y - 1f);
-            if (checkWall(tragetPosition) && transform.position == new Vector3(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y), 0))
-            {
+        Vector2 input = new Vector2((Input.GetKeyDown(KeyCode.D)||Input.GetKeyDown(KeyCode.RightArrow)?1:0) - (Input.GetKeyDown(KeyCode.A)||Input.GetKeyDown(KeyCode.LeftArrow)?1:0), (Input.GetKeyDown(KeyCode.W)||Input.GetKeyDown(KeyCode.UpArrow)?1:0) - (Input.GetKeyDown(KeyCode.S)||Input.GetKeyDown(KeyCode.DownArrow)?1:0));
+        if(input != Vector2.zero) {
+            targetPosition = new Vector2(transform.position.x + input.x, transform.position.y + input.y);
+            if (checkWall(targetPosition) && (Vector2)transform.position == new Vector2(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y))) {
                 MoveToPosition();
             }
         }
@@ -60,7 +35,7 @@ public class Player : MonoBehaviour
 
     void MoveToPosition()
     {
-        iTween.MoveTo(gameObject, tragetPosition, timeMovement);
+        iTween.MoveTo(gameObject, targetPosition, timeMovement);
         BlackBoard.gameManager.Swap();
         StartCoroutine(timeMove());
     }
@@ -92,7 +67,7 @@ public class Player : MonoBehaviour
     IEnumerator timeMove()
     {
         yield return new WaitForSeconds(timeMovement);
-        if (checkTrap(tragetPosition))
+        if (checkTrap(targetPosition))
         {
             SceneManager.LoadScene(0);
         }
