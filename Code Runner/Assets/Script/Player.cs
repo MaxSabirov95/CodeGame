@@ -1,77 +1,55 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.UIElements;
-using UnityEngine.SceneManagement;
 
-public class Player : MonoBehaviour
-{
+public class Player : MonoBehaviour {
     public float timeMovement;
-    GameObject[] walls;
-    GameObject[] traps;
-    Vector2 targetPosition;
+    Vector2Int targetPosition;
 
-    private void Awake()
-    {
-        traps = GameObject.FindGameObjectsWithTag("Trap");
+    private void Awake() {
     }
 
-    private void Start()
-    {
-        walls = GameObject.FindGameObjectsWithTag("Wall");
+    private void Start() {
     }
 
-    void Update()
-    {
-        Vector2 input = new Vector2((Input.GetKeyDown(KeyCode.D)||Input.GetKeyDown(KeyCode.RightArrow)?1:0) - (Input.GetKeyDown(KeyCode.A)||Input.GetKeyDown(KeyCode.LeftArrow)?1:0), (Input.GetKeyDown(KeyCode.W)||Input.GetKeyDown(KeyCode.UpArrow)?1:0) - (Input.GetKeyDown(KeyCode.S)||Input.GetKeyDown(KeyCode.DownArrow)?1:0));
-        if(input != Vector2.zero) {
-            targetPosition = new Vector2(transform.position.x + input.x, transform.position.y + input.y);
-            if (checkWall(targetPosition) && (Vector2)transform.position == new Vector2(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y))) {
+    void Update() {
+        Vector2 input = new Vector2((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow) ? 1 : 0) - (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow) ? 1 : 0), (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) ? 1 : 0) - (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow) ? 1 : 0));
+        if (input != Vector2.zero) {
+            targetPosition = VectorToInt(new Vector2(transform.position.x + input.x, transform.position.y + input.y));
+            if (checkWall(targetPosition) && transform.position == VectorToInt(transform.position)) {
                 MoveToPosition();
             }
         }
     }
 
-    void MoveToPosition()
-    {
-        iTween.MoveTo(gameObject, targetPosition, timeMovement);
+    void MoveToPosition() {
+        iTween.MoveTo(gameObject, (Vector2)targetPosition, timeMovement);
         BlackBoard.gameManager.Swap();
         StartCoroutine(timeMove());
     }
 
-    bool checkWall(Vector2 targetPosition)
-    {
-        foreach(GameObject wall in walls)
-        {
-            if((Vector2)wall.transform.position == targetPosition)
-            {
-                return false;
-            }
-        }
-        return true;
+    bool checkWall(Vector2Int targetPosition) {
+        return !BlackBoard.gameManager.walls.HasTile((Vector3Int)targetPosition);
     }
 
-    bool checkTrap(Vector2 targetPosition)
-    {
-        foreach (GameObject trap in traps)
-        {
-            if ((Vector2)trap.transform.position == targetPosition && trap.activeInHierarchy)
-            {
-                return true;
-            }
-        }
-        return false;
+    bool checkTrap(Vector2Int targetPosition) {
+        return (BlackBoard.gameManager.trapsLayer1.isActiveAndEnabled
+            && BlackBoard.gameManager.trapsLayer1.HasTile((Vector3Int)targetPosition))
+            ||
+            (BlackBoard.gameManager.trapsLayer2.isActiveAndEnabled
+            && BlackBoard.gameManager.trapsLayer2.HasTile((Vector3Int)targetPosition));
     }
 
-    IEnumerator timeMove()
-    {
+    IEnumerator timeMove() {
         yield return new WaitForSeconds(timeMovement);
-        if (checkTrap(targetPosition))
-        {
-            SceneManager.LoadScene(0);
+        if (checkTrap(targetPosition)) {
+            BlackBoard.gameManager.ReloadScene();
         }
     }
 
-
+    Vector3Int VectorToInt(Vector3 vector) {
+        return new Vector3Int(Mathf.RoundToInt(vector.x), Mathf.RoundToInt(vector.y), Mathf.RoundToInt(vector.z));
+    }
+    Vector2Int VectorToInt(Vector2 vector) {
+        return (Vector2Int)VectorToInt((Vector3)vector);
+    }
 }

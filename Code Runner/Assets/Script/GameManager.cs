@@ -1,44 +1,45 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 
-public class GameManager : MonoBehaviour
-{
-    public GameObject trapLayer1;
-    public GameObject trapLayer2;
+public class GameManager : MonoBehaviour {
+    [HideInInspector]
+    public Tilemap trapsLayer1;
+    [HideInInspector]
+    public Tilemap trapsLayer2;
+    [HideInInspector]
+    public Tilemap walls;
 
-    bool swap;
+    bool swap = true;
 
-    private void Awake()
-    {
-        swap = true;
+
+
+    private void Awake() {
         BlackBoard.gameManager = this;
     }
     // Start is called before the first frame update
-    void Start()
-    {
-        trapLayer2.SetActive(false);
+    void Start() {
+        trapsLayer1 = GameObject.FindGameObjectWithTag("Layer1").GetComponent<Tilemap>();
+        trapsLayer2 = GameObject.FindGameObjectWithTag("Layer2").GetComponent<Tilemap>();
+        walls = GameObject.FindGameObjectWithTag("Wall").GetComponent<Tilemap>();
+        Swap(swap);
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.Space)) { Swap(); }
     }
 
-    public void Swap()
-    {
-        if (swap)
-        {
-            trapLayer1.SetActive(false);
-            trapLayer2.SetActive(true);
-            swap = false;
-        }
-        else
-        {
-            trapLayer1.SetActive(true);
-            trapLayer2.SetActive(false);
-            swap = true;
-        }
+    void Swap(bool swapValue) {
+        swap = swapValue;
+        trapsLayer1.gameObject.SetActive(swap);
+        trapsLayer2.gameObject.SetActive(!swap);
+    }
+    public void Swap() {
+        Swap(!swap);
+    }
+
+    public void ReloadScene() {
+        SceneManager.LoadScene(0);
     }
 }
