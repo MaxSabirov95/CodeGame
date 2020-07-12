@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-[ExecuteInEditMode]
 public class CameraController : MonoBehaviour
 {     
     [Range(0,10)]
