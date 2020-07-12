@@ -29,11 +29,9 @@ public class GameManager : MonoBehaviour {
         BlackBoard.gameManager = this;
         BlackBoard.refrences = refrences;
         BlackBoard.tiles = tiles;
-    }
-
-    void Start() {
         refrences.walls = GameObject.FindGameObjectWithTag("Wall").GetComponent<Tilemap>();
-        GameObject[] tempTrapsObjects = GameObject.FindGameObjectsWithTag("trap");
+        Debug.Log(refrences.walls);
+        GameObject[] tempTrapsObjects = GameObject.FindGameObjectsWithTag("Trap");
         for (int i = 0; i < tempTrapsObjects.Length; i++) {
             refrences.trapsLayers[i] = tempTrapsObjects[i].GetComponent<Tilemap>();
         }
