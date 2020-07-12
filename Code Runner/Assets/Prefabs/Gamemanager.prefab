@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5281659672004629379}
   - component: {fileID: 6741706350169708695}
   m_Layer: 0
-  m_Name: Gamemanager
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,6 +43,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbc9e718f90257040b0e4ece1878ff72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trapsLayer1: {fileID: 0}
-  trapsLayer2: {fileID: 0}
+  tiles:
+    trap1: {fileID: 11400000, guid: 66ada8fdbcd30414fab8e17a54946c1c, type: 2}
+    trap2: {fileID: 11400000, guid: 4a11c61f0bead9a4498987044e67f0b1, type: 2}
+    openExitTile: {fileID: 11400000, guid: e1570f9c879bf2c46a01ccb31962bacc, type: 2}
+  refrences:
+    trapsLayers:
+    - {fileID: 0}
+    - {fileID: 0}
   walls: {fileID: 0}

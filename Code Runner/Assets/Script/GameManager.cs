@@ -1,38 +1,60 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
+using Assets.Tiles;
+
+[Serializable]
+public class Refrences {
+    [SerializeField]
+    public Tilemap[] trapsLayers;
+    [SerializeField]
+    public Tilemap[] generalLayers;
+
+}
 
 public class GameManager : MonoBehaviour {
-    [HideInInspector]
-    public Tilemap trapsLayer1;
-    [HideInInspector]
-    public Tilemap trapsLayer2;
+
+    [SerializeField]
+    Tiles tiles;
+    [SerializeField]
+    Refrences refrences;
     [HideInInspector]
     public Tilemap walls;
 
-    bool swap = true;
+    int currentTrapLayer = 0;
 
     private void Awake() {
         BlackBoard.gameManager = this;
+        BlackBoard.refrences = refrences;
+        BlackBoard.tiles = tiles;
     }
 
     void Start() {
-        trapsLayer1 = GameObject.FindGameObjectWithTag("Layer1").GetComponent<Tilemap>();
-        trapsLayer2 = GameObject.FindGameObjectWithTag("Layer2").GetComponent<Tilemap>();
         walls = GameObject.FindGameObjectWithTag("Wall").GetComponent<Tilemap>();
-        Swap(swap);
+        Swap(currentTrapLayer);
     }
 
-    void Swap(bool swapValue) {
-        swap = swapValue;
-        trapsLayer1.gameObject.SetActive(swap);
-        trapsLayer2.gameObject.SetActive(!swap);
+    void Swap(int layer) {
+        currentTrapLayer = layer % refrences.trapsLayers.Length;
+        foreach (Tilemap tilemap in refrences.trapsLayers){
+            tilemap.gameObject.SetActive(false);
+        }
+        refrences.trapsLayers[currentTrapLayer].gameObject.SetActive(true);
     }
     public void Swap() {
-        Swap(!swap);
+        Swap(currentTrapLayer + 1);
     }
 
-    public void ReloadScene() {
+    public void Death() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex,LoadSceneMode.Single);
     }
+
+    public void PassLevel() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1, LoadSceneMode.Single);
+    }
 }
+
+
+
+
