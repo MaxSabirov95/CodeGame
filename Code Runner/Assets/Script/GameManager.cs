@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour {
 
     void Start() {
         walls = GameObject.FindGameObjectWithTag("Wall").GetComponent<Tilemap>();
-        Swap(currentTrapLayer);
+        
     }
 
     void Swap(int layer) {
