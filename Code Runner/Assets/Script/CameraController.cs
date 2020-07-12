@@ -21,9 +21,6 @@ public class CameraController : MonoBehaviour
     float offsetY;
     Camera cameraMain;
     Rect cameraRect;
-
-    [SerializeField]
-    Tilemap wallsTilemap;
     Bounds wallsBounds;
 
     Vector2 offset;
@@ -41,9 +38,9 @@ public class CameraController : MonoBehaviour
 
     void UpdateCameraPosition()
         {
-            wallsTilemap.CompressBounds();
+            BlackBoard.refrences.walls.CompressBounds();
 
-            wallsBounds = GetBounds(wallsTilemap);
+            wallsBounds = GetBounds(BlackBoard.refrences.walls);
 
             cameraRect.min = wallsBounds.min;
             cameraRect.max = wallsBounds.max;

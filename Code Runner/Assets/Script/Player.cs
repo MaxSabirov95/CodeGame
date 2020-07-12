@@ -30,7 +30,7 @@ public class Player : MonoBehaviour {
     }
 
     bool checkWall(Vector3Int targetPosition) {
-        return !BlackBoard.gameManager.walls.HasTile(targetPosition);
+        return !BlackBoard.refrences.walls.HasTile(targetPosition);
     }
 
     void checkTile(Vector3Int targetPosition) {

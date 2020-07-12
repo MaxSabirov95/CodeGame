@@ -6,10 +6,12 @@ using Assets.Tiles;
 
 [Serializable]
 public class Refrences {
-    [SerializeField]
+    [HideInInspector]
     public Tilemap[] trapsLayers;
     [SerializeField]
     public Tilemap[] generalLayers;
+    [HideInInspector]
+    public Tilemap walls;
 
 }
 
@@ -19,8 +21,7 @@ public class GameManager : MonoBehaviour {
     Tiles tiles;
     [SerializeField]
     Refrences refrences;
-    [HideInInspector]
-    public Tilemap walls;
+
 
     int currentTrapLayer = 0;
 
@@ -31,8 +32,11 @@ public class GameManager : MonoBehaviour {
     }
 
     void Start() {
-        walls = GameObject.FindGameObjectWithTag("Wall").GetComponent<Tilemap>();
-        
+        refrences.walls = GameObject.FindGameObjectWithTag("Wall").GetComponent<Tilemap>();
+        GameObject[] tempTrapsObjects = GameObject.FindGameObjectsWithTag("trap");
+        for (int i = 0; i < tempTrapsObjects.Length; i++) {
+            refrences.trapsLayers[i] = tempTrapsObjects[i].GetComponent<Tilemap>();
+        }
     }
 
     void Swap(int layer) {
