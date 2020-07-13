@@ -47,14 +47,6 @@ public class GameManager : MonoBehaviour {
     public void Swap() {
         Swap(currentTrapLayer + 1);
     }
-
-    public void Death() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex,LoadSceneMode.Single);
-    }
-
-    public void PassLevel() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1, LoadSceneMode.Single);
-    }
 }
 
 

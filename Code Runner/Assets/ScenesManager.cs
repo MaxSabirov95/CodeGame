@@ -12,48 +12,50 @@ public class ScenesManager : MonoBehaviour
     private GameObject settingsPanel;
     [SerializeField]
     private GameObject creditsPanel;
+    [SerializeField]
+    private Button pauseButton;
+    [SerializeField]
+    private GameObject pausePanel;
 
     private void Start()
     {
-        if (mainMenuPanel == null)
-        {
-            mainMenuPanel = null;
-        }
-        else
+        if (mainMenuPanel != null)
         {
             mainMenuPanel.SetActive(true);
         }
 
-        if (settingsPanel == null)
-        {
-            settingsPanel = null;
-        }
-        else
+        if (settingsPanel != null)
         {
             settingsPanel.SetActive(false);
         }
 
-        if (creditsPanel == null)
-        {
-            creditsPanel = null;
-        }
-        else
+        if (creditsPanel != null)
         {
             creditsPanel.SetActive(false);
+        }
+
+        if (pauseButton != null)
+        {
+            pauseButton.gameObject.SetActive(true);
+        }
+
+        if (pausePanel != null)
+        {
+            pausePanel.SetActive(false);
         }
     }
 
     public void GoToChooseLevels()
     {
-        SceneManager.LoadScene(6);
+        SceneManager.LoadScene(12);
     }
     public void GoToMainMenu()
     {
-        SceneManager.LoadScene(5);
+        SceneManager.LoadScene(11);
     }
     public void GoToAchievments()
     {
-        SceneManager.LoadScene(7);
+        SceneManager.LoadScene(13);
     }
     public void GoToSettingsPanel()
     {
@@ -71,6 +73,22 @@ public class ScenesManager : MonoBehaviour
         mainMenuPanel.SetActive(true);
         settingsPanel.SetActive(false);
         creditsPanel.SetActive(false);
+    }
+    public void RestartScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+        ResumeButton();
+    }
+
+    public void PauseButton()
+    {
+        Time.timeScale = 0;
+        pausePanel.SetActive(true);
+    }
+    public void ResumeButton()
+    {
+        Time.timeScale = 1;
+        pausePanel.SetActive(false);
     }
 
     public void LevelTutorial()
@@ -92,5 +110,20 @@ public class ScenesManager : MonoBehaviour
     public void Level4()
     {
         SceneManager.LoadScene(4);
+    }
+
+    private void Awake()
+    {
+        BlackBoard.scenesManager = this;
+    }
+
+    public void Death()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+    }
+
+    public void NextLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1, LoadSceneMode.Single);
     }
 }

@@ -32,11 +32,11 @@ namespace Assets.Tiles {
         }
 
         private void NextLevel() {
-            BlackBoard.gameManager.PassLevel();
+            BlackBoard.scenesManager.NextLevel();
         }
 
         private void trap() {
-            BlackBoard.gameManager.Death();
+            BlackBoard.scenesManager.Death();
         }
     }
 }

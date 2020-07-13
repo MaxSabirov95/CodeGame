@@ -8,6 +8,7 @@ using Assets.Tiles;
 public class BlackBoard
 {
     public static GameManager gameManager;
+    public static ScenesManager scenesManager;
     public static Refrences refrences;
     public static Tiles tiles;
 }
