@@ -7,7 +7,7 @@ using Assets.TilemapTools;
 [Serializable]
 public class Refrences {
     [SerializeField]
-    TileAttachment[] tilesAttachments;
+    public TileInteraction[] tilesInteractions;
     [HideInInspector]
     public Tilemap[] trapsLayers;
     [HideInInspector]
@@ -16,13 +16,13 @@ public class Refrences {
     public Tilemap walls;
 
     [Serializable]
-    class TileAttachment {
+    public class TileInteraction {
         [SerializeField]
-        TilemapTools.Tiles tile;
+        public TilemapTools.Tiles tile;
         [SerializeField]
-        Vector2Int position;
+        public Vector2Int position;
         [SerializeField]
-        Vector2Int targetPosition;
+        public Vector2Int targetPosition;
     }
 }
 
