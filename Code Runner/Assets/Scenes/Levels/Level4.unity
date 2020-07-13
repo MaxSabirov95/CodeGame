@@ -943,7 +943,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 0
+      m_TileSpriteIndex: 2
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -975,12 +975,12 @@ Tilemap:
   - m_RefCount: 0
     m_Data: {fileID: 0}
   m_TileSpriteArray:
-  - m_RefCount: 1
-    m_Data: {fileID: 21300000, guid: f5299ffc588933244956919d17de0d1b, type: 3}
-  - m_RefCount: 2
-    m_Data: {fileID: 21300000, guid: f28de0672c565c54dba0ba4513d89c8a, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
+  - m_RefCount: 2
+    m_Data: {fileID: 21300000, guid: f28de0672c565c54dba0ba4513d89c8a, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300000, guid: f5299ffc588933244956919d17de0d1b, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 3
     m_Data:
@@ -1399,7 +1399,7 @@ GameObject:
   - component: {fileID: 8822295728381779281}
   m_Layer: 0
   m_Name: Layer2
-  m_TagString: Trap
+  m_TagString: Swapping Layers
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1417,7 +1417,7 @@ GameObject:
   - component: {fileID: 8822295728399582954}
   m_Layer: 0
   m_Name: Layer1
-  m_TagString: Trap
+  m_TagString: Swapping Layers
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1738,7 +1738,7 @@ GameObject:
   - component: {fileID: 8822295728522066776}
   m_Layer: 0
   m_Name: Walls
-  m_TagString: Wall
+  m_TagString: Wall Layer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

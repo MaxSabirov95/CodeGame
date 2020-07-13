@@ -377,9 +377,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbc9e718f90257040b0e4ece1878ff72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trapsLayer1: {fileID: 0}
-  trapsLayer2: {fileID: 0}
-  walls: {fileID: 0}
+  tiles:
+    trap1: {fileID: 0}
+    trap2: {fileID: 0}
+    key: {fileID: 0}
+    closedExitTile: {fileID: 0}
+    openExitTile: {fileID: 0}
+    swapper: {fileID: 0}
+  refrences:
+    tilesInteractions: []
+    trapsLayers: []
+    generalLayers: []
+    walls: {fileID: 0}
 --- !u!4 &6404426868269454315
 Transform:
   m_ObjectHideFlags: 0
@@ -510,9 +519,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 762a8e6edbe742d48989e8eb59d68f32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallsTilemap: {fileID: 8822295728522066777}
-  layer1Tilemap: {fileID: 8822295728399582955}
-  layer2Tilemap: {fileID: 8822295728381779282}
+  borderSizeX: 0
+  borderSizeY: 0
+  offsetX: 0
+  offsetY: 0
 --- !u!20 &8822295727691262103
 Camera:
   m_ObjectHideFlags: 0
@@ -857,7 +867,7 @@ GameObject:
   - component: {fileID: 8822295728381779281}
   m_Layer: 0
   m_Name: Layer2
-  m_TagString: Layer2
+  m_TagString: Swapping Layers
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -875,7 +885,7 @@ GameObject:
   - component: {fileID: 8822295728399582954}
   m_Layer: 0
   m_Name: Layer1
-  m_TagString: Layer1
+  m_TagString: Swapping Layers
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1061,7 +1071,7 @@ GameObject:
   - component: {fileID: 8822295728522066776}
   m_Layer: 0
   m_Name: Walls
-  m_TagString: Wall
+  m_TagString: Wall Layer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -18,7 +18,7 @@ public class Player : MonoBehaviour {
                                   - (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow) ? 1 : 0));
         if (((input.x != 0 && input.y == 0) || (input.x == 0 && input.y !=0))  && (canMove)) {
             targetPosition = TilemapTools.VectorToInt(new Vector3(transform.position.x + input.x, transform.position.y + input.y, 0f));
-            if (checkWall(targetPosition) && transform.position == TilemapTools.VectorToInt(transform.position)) {
+            if (CheckWall(targetPosition) && transform.position == TilemapTools.VectorToInt(transform.position)) {
                 MoveToPosition();
             }
         }
@@ -27,19 +27,19 @@ public class Player : MonoBehaviour {
     void MoveToPosition() {
         LeanTween.move(gameObject, (Vector3)targetPosition, timeMovement);
         BlackBoard.gameManager.Swap();
-        StartCoroutine(timeMove());
+        StartCoroutine(TimeMove());
     }
 
-    bool checkWall(Vector3Int targetPosition) {
+    bool CheckWall(Vector3Int targetPosition) {
         return !BlackBoard.refrences.walls.HasTile(targetPosition);
     }
 
-    void checkTile(Vector3Int targetPosition) {
-        foreach (Tilemap tilemap in BlackBoard.refrences.trapsLayers) {
+    void CheckTile(Vector3Int targetPosition) {
+        foreach (Tilemap tilemap in BlackBoard.refrences.swappingLayers) {
             if (tilemap.isActiveAndEnabled) {
                 TileBase tile = tilemap.GetTile(targetPosition);
                 if (tile) {
-                    BlackBoard.tiles.TrapTileAction(tile);
+                    BlackBoard.tiles.GeneralTileAction(tile, tilemap, targetPosition);
                 }
             }
         }
@@ -47,16 +47,16 @@ public class Player : MonoBehaviour {
             if (tilemap.isActiveAndEnabled) {
                 TileBase tile = tilemap.GetTile(targetPosition);
                 if (tile) {
-                    BlackBoard.tiles.GeneralTileAction(tile, targetPosition);
+                    BlackBoard.tiles.GeneralTileAction(tile, tilemap, targetPosition);
                 }
             }
         }
     }
 
-    IEnumerator timeMove() {
+    IEnumerator TimeMove() {
         canMove = false;
         yield return new WaitForSeconds(timeMovement);
-        checkTile(targetPosition);
+        CheckTile(targetPosition);
         canMove = true;
     }
 }

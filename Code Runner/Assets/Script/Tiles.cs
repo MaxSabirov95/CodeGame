@@ -25,44 +25,38 @@ namespace Assets.TilemapTools {
         [SerializeField]
         TileBase swapper;
 
-        public void TrapTileAction(TileBase tile) {
-            if (tile == trap1 || tile == trap2) {
-                trap();
+        public void GeneralTileAction(TileBase _tile, Tilemap _tilemap, Vector3Int _tilePosition) {
+            if (_tile == trap1 || _tile == trap2) {
+                Trap();
             }
-            else {
-                throw new NotImplementedException();
-            }
-        }
-
-        public void GeneralTileAction(TileBase tile, Vector3Int tilePosition) {
-            if (tile == openExitTile) {
+            else if (_tile == openExitTile) {
                 NextLevel();
             }
-            else if (tile == key) {
-                KeyAction(tilePosition);
+            else if (_tile == key) {
+                KeyAction(_tilemap, _tilePosition);
             }
-            else if (tile == swapper) {
-                SwapperAction(tilePosition);
+            else if (_tile == swapper) {
+                SwapperAction(_tilemap, _tilePosition);
             }
         }
 
-        private void SwapperAction(Vector3Int tilePosition) {
+        private void SwapperAction(Tilemap _tilemap, Vector3Int _tilePosition) {
             BlackBoard.gameManager.Swap();
-            TilemapTools.RemoveTile(swapper, tilePosition);
+            _tilemap.SetTile(_tilePosition, null);
         }
 
-        private void KeyAction(Vector3Int tilePosition) {
+        private void KeyAction(Tilemap _tilemap, Vector3Int _tilePosition) {
             foreach (Tilemap tilemap in BlackBoard.refrences.generalLayers) {
                 tilemap.SwapTile(closedExitTile, openExitTile);
             }
-            TilemapTools.RemoveTile(key, tilePosition);
+            _tilemap.SetTile(_tilePosition, null);
         }
 
         private void NextLevel() {
             BlackBoard.scenesManager.NextLevel();
         }
 
-        private void trap() {
+        private void Trap() {
             BlackBoard.scenesManager.Death();
         }
     }
@@ -71,34 +65,27 @@ namespace Assets.TilemapTools {
 
     public static class TilemapTools {
         public enum Tiles { Trap, Key, ClosedExit, OpenExit }
-        public static Vector3Int VectorToInt(Vector3 vector) {
-            return new Vector3Int(Mathf.RoundToInt(vector.x), Mathf.RoundToInt(vector.y), Mathf.RoundToInt(vector.z));
+        public static Vector3Int VectorToInt(Vector3 _vector) {
+            return new Vector3Int(Mathf.RoundToInt(_vector.x), Mathf.RoundToInt(_vector.y), Mathf.RoundToInt(_vector.z));
         }
 
-        public static Vector2Int VectorToInt(Vector2 vector) {
-            return (Vector2Int)VectorToInt((Vector3)vector);
+        public static Vector2Int VectorToInt(Vector2 _vector) {
+            return (Vector2Int)VectorToInt((Vector3)_vector);
         }
 
-        public static Bounds GetBounds(Tilemap tilemap) {
+        public static Bounds GetBounds(Tilemap _tilemap) {
             BlackBoard.refrences.walls.CompressBounds();
-            Bounds tempBounds = tilemap.gameObject.GetComponent<TilemapRenderer>().bounds;
-            Bounds bounds = new Bounds();
-            bounds.min = tilemap.gameObject.transform.TransformPoint(tempBounds.min) + (Vector3)Vector2.one * 0.5f;
-            bounds.max = tilemap.gameObject.transform.TransformPoint(tempBounds.max) + (Vector3)Vector2.one * 0.5f;
+            Bounds tempBounds = _tilemap.gameObject.GetComponent<TilemapRenderer>().bounds;
+            Bounds bounds = new Bounds {
+                min = _tilemap.gameObject.transform.TransformPoint(tempBounds.min) + (Vector3)Vector2.one * 0.5f,
+                max = _tilemap.gameObject.transform.TransformPoint(tempBounds.max) + (Vector3)Vector2.one * 0.5f
+            };
             return bounds;
         }
 
-        public static void RemoveTile(TileBase tile,Vector3Int tilePosition) {
-            foreach (Tilemap tilemap in BlackBoard.refrences.generalLayers) {
-                if (tilemap.GetTile(tilePosition) == tile) {
-                    tilemap.SetTile(tilePosition, null);
-                }
-            }
-        }
-
-        public static Vector2Int GetInteraction(TilemapTools.Tiles tile, Vector3Int tilePosition) {
+        public static Vector2Int GetInteraction(TilemapTools.Tiles _tileType, Vector3Int _tilePosition) {
             foreach (Refrences.TileInteraction tileInteraction in BlackBoard.refrences.tilesInteractions) {
-                if(tileInteraction.tile == tile && tileInteraction.position == (Vector2Int)tilePosition) {
+                if(tileInteraction.tile == _tileType && tileInteraction.position == (Vector2Int)_tilePosition) {
                     return tileInteraction.targetPosition;
                 }
             }

@@ -9,7 +9,7 @@ public class Refrences {
     [SerializeField]
     public TileInteraction[] tilesInteractions;
     [HideInInspector]
-    public Tilemap[] trapsLayers;
+    public Tilemap[] swappingLayers;
     [HideInInspector]
     public Tilemap[] generalLayers;
     [HideInInspector]
@@ -40,23 +40,29 @@ public class GameManager : MonoBehaviour {
         BlackBoard.gameManager = this;
         BlackBoard.refrences = refrences;
         BlackBoard.tiles = tiles;
-        refrences.walls = GameObject.FindGameObjectWithTag("Wall").GetComponent<Tilemap>();
-        GameObject[] tempObjects = GameObject.FindGameObjectsWithTag("Trap");
+        refrences.walls = GameObject.FindGameObjectWithTag("Wall Layer").GetComponent<Tilemap>();
+        GameObject[] tempObjects = GameObject.FindGameObjectsWithTag("Swapping Layers");
+        refrences.swappingLayers = new Tilemap[tempObjects.Length];
         for (int i = 0; i < tempObjects.Length; i++) {
-            refrences.trapsLayers[i] = tempObjects[i].GetComponent<Tilemap>();
+            refrences.swappingLayers[i] = tempObjects[i].GetComponent<Tilemap>();
         }
         tempObjects = GameObject.FindGameObjectsWithTag("General Layers");
+        refrences.generalLayers = new Tilemap[tempObjects.Length];
         for (int i = 0; i < tempObjects.Length; i++) {
             refrences.generalLayers[i] = tempObjects[i].GetComponent<Tilemap>();
         }
     }
 
+    private void Start() {
+        Swap(currentTrapLayer);
+    }
+
     void Swap(int layer) {
-        currentTrapLayer = layer % refrences.trapsLayers.Length;
-        foreach (Tilemap tilemap in refrences.trapsLayers){
+        currentTrapLayer = layer % refrences.swappingLayers.Length;
+        foreach (Tilemap tilemap in refrences.swappingLayers){
             tilemap.gameObject.SetActive(false);
         }
-        refrences.trapsLayers[currentTrapLayer].gameObject.SetActive(true);
+        refrences.swappingLayers[currentTrapLayer].gameObject.SetActive(true);
     }
     public void Swap() {
         Swap(currentTrapLayer + 1);
