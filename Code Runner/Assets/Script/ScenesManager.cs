@@ -47,15 +47,15 @@ public class ScenesManager : MonoBehaviour
 
     public void GoToChooseLevels()
     {
-        SceneManager.LoadScene("Levels");
+        SceneManager.LoadScene(12);
     }
     public void GoToMainMenu()
     {
-        SceneManager.LoadScene("Main Menu");
+        SceneManager.LoadScene(11);
     }
     public void GoToAchievments()
     {
-        SceneManager.LoadScene("Achievments");
+        SceneManager.LoadScene(13);
     }
     public void GoToSettingsPanel()
     {
@@ -93,23 +93,23 @@ public class ScenesManager : MonoBehaviour
 
     public void LevelTutorial()
     {
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(0);
     }
     public void Level1()
     {
-        SceneManager.LoadScene(4);
+        SceneManager.LoadScene(1);
     }
     public void Level2()
     {
-        SceneManager.LoadScene(5);
+        SceneManager.LoadScene(2);
     }
     public void Level3()
     {
-        SceneManager.LoadScene(6);
+        SceneManager.LoadScene(3);
     }
     public void Level4()
     {
-        SceneManager.LoadScene(7);
+        SceneManager.LoadScene(4);
     }
 
     private void Awake()
