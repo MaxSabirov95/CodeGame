@@ -706,13 +706,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6741706350169708695, guid: 6526f8cde664dbe469b60cb61fb181e7,
         type: 3}
+      propertyPath: refrences.tilesAttachments.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6741706350169708695, guid: 6526f8cde664dbe469b60cb61fb181e7,
+        type: 3}
       propertyPath: refrences.generalLayers.Array.data[0]
       value: 
       objectReference: {fileID: 1469275823}
+    - target: {fileID: 6741706350169708695, guid: 6526f8cde664dbe469b60cb61fb181e7,
+        type: 3}
+      propertyPath: refrences.tilesAttachments.Array.data[0].tile
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8317734182369373377, guid: 6526f8cde664dbe469b60cb61fb181e7,
         type: 3}
       propertyPath: m_Name
-      value: Gamemanager
+      value: GameManager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6526f8cde664dbe469b60cb61fb181e7, type: 3}

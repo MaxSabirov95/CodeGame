@@ -47,7 +47,7 @@ public class Player : MonoBehaviour {
             if (tilemap.isActiveAndEnabled) {
                 TileBase tile = tilemap.GetTile(targetPosition);
                 if (tile) {
-                    BlackBoard.tiles.GeneralTileAction(tile);
+                    BlackBoard.tiles.GeneralTileAction(tile, targetPosition);
                 }
             }
         }

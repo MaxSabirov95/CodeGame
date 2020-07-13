@@ -4,6 +4,12 @@ using UnityEngine.Tilemaps;
 
 namespace Assets.TilemapTools {
 
+    //Steps for adding a new tile:
+    //1) Add a refrence to it.
+    //2) Add a action to it in the Tile action class.
+    //3) Add a enum for it in the TilemapTools.
+
+
     [Serializable]
     public class Tiles {
         [SerializeField]
@@ -26,21 +32,18 @@ namespace Assets.TilemapTools {
             }
         }
 
-        public void GeneralTileAction(TileBase tile) {
+        public void GeneralTileAction(TileBase tile, Vector3Int tilePosition) {
             if (tile == openExitTile) {
                 NextLevel();
             }if (tile == key) {
-                KeyAction();
-            }
-            else {
-                throw new NotImplementedException();
+                KeyAction(tilePosition);
             }
         }
 
-        private void KeyAction() {
+        private void KeyAction(Vector3Int tilePosition) {
             foreach (Tilemap tilemap in BlackBoard.refrences.generalLayers) {
                 tilemap.SwapTile(closedExitTile, openExitTile);
-                tilemap.SwapTile(key, null);
+                tilemap.SetTile(tilePosition, null);
             }
         }
 
@@ -56,6 +59,7 @@ namespace Assets.TilemapTools {
 
 
     public static class TilemapTools {
+        public enum Tiles { Trap, Key, ClosedExit, OpenExit}
         public static Vector3Int VectorToInt(Vector3 vector) {
             return new Vector3Int(Mathf.RoundToInt(vector.x), Mathf.RoundToInt(vector.y), Mathf.RoundToInt(vector.z));
         }

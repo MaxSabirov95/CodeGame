@@ -6,13 +6,24 @@ using Assets.TilemapTools;
 
 [Serializable]
 public class Refrences {
+    [SerializeField]
+    TileAttachment[] tilesAttachments;
     [HideInInspector]
     public Tilemap[] trapsLayers;
-    [SerializeField]
+    [HideInInspector]
     public Tilemap[] generalLayers;
     [HideInInspector]
     public Tilemap walls;
 
+    [Serializable]
+    class TileAttachment {
+        [SerializeField]
+        TilemapTools.Tiles tile;
+        [SerializeField]
+        Vector2Int position;
+        [SerializeField]
+        Vector2Int targetPosition;
+    }
 }
 
 public class GameManager : MonoBehaviour {
@@ -30,10 +41,13 @@ public class GameManager : MonoBehaviour {
         BlackBoard.refrences = refrences;
         BlackBoard.tiles = tiles;
         refrences.walls = GameObject.FindGameObjectWithTag("Wall").GetComponent<Tilemap>();
-        Debug.Log(refrences.walls);
-        GameObject[] tempTrapsObjects = GameObject.FindGameObjectsWithTag("Trap");
-        for (int i = 0; i < tempTrapsObjects.Length; i++) {
-            refrences.trapsLayers[i] = tempTrapsObjects[i].GetComponent<Tilemap>();
+        GameObject[] tempObjects = GameObject.FindGameObjectsWithTag("Trap");
+        for (int i = 0; i < tempObjects.Length; i++) {
+            refrences.trapsLayers[i] = tempObjects[i].GetComponent<Tilemap>();
+        }
+        tempObjects = GameObject.FindGameObjectsWithTag("General Layers");
+        for (int i = 0; i < tempObjects.Length; i++) {
+            refrences.generalLayers[i] = tempObjects[i].GetComponent<Tilemap>();
         }
     }
 
