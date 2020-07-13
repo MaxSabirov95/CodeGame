@@ -18,7 +18,7 @@ public class Refrences {
     [Serializable]
     public class TileInteraction {
         [SerializeField]
-        public TilemapTools.Tiles tile;
+        public TilemapTools.InteractionsTypes tile;
         [SerializeField]
         public Vector2Int position;
         [SerializeField]

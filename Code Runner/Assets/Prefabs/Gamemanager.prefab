@@ -50,11 +50,12 @@ MonoBehaviour:
     closedExitTile: {fileID: 11400000, guid: 543aca2883d3c9448ba2ddb4532207db, type: 2}
     openExitTile: {fileID: 11400000, guid: e1570f9c879bf2c46a01ccb31962bacc, type: 2}
     swapper: {fileID: 11400000, guid: f939c877145f9494d8048593f3ca635e, type: 2}
+    teleporter: {fileID: 11400000, guid: 869ee820a56c4744fbb12475575dd6a0, type: 2}
+    button: {fileID: 11400000, guid: e95fef5c436bb3843b673940d73ba996, type: 2}
+    door: {fileID: 11400000, guid: 2ca9124d019ecb84a923d0cdbde8c19c, type: 2}
   refrences:
     tilesInteractions: []
-    trapsLayers:
-    - {fileID: 0}
-    - {fileID: 0}
+    swappingLayers: []
     generalLayers:
     - {fileID: 0}
     walls: {fileID: 0}

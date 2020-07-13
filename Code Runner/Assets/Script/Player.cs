@@ -9,8 +9,14 @@ using Assets.TilemapTools;
 public class Player : MonoBehaviour {
     public float timeMovement;
     Vector3Int targetPosition;
+    [HideInInspector]
+    public GridMovementController moveController;
     bool canMove=true;
 
+    private void Start() {
+        BlackBoard.player = this;
+        moveController = GetComponent<GridMovementController>();
+    }
     void Update() {
         Vector2 input = new Vector2((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow) ? 1 : 0)
                                   - (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow) ? 1 : 0),
@@ -25,7 +31,7 @@ public class Player : MonoBehaviour {
     }
 
     void MoveToPosition() {
-        LeanTween.move(gameObject, (Vector3)targetPosition, timeMovement);
+        moveController.Move(targetPosition, timeMovement);
         BlackBoard.gameManager.Swap();
         StartCoroutine(TimeMove());
     }

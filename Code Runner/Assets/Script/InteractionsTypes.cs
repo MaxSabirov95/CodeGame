@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System.Collections.Generic;
 
 namespace Assets.TilemapTools {
 
@@ -24,6 +25,13 @@ namespace Assets.TilemapTools {
         TileBase openExitTile;
         [SerializeField]
         TileBase swapper;
+        [SerializeField]
+        TileBase teleporter;
+        [SerializeField]
+        TileBase button;
+        [SerializeField]
+        TileBase door;
+
 
         public void GeneralTileAction(TileBase _tile, Tilemap _tilemap, Vector3Int _tilePosition) {
             if (_tile == trap1 || _tile == trap2) {
@@ -37,6 +45,17 @@ namespace Assets.TilemapTools {
             }
             else if (_tile == swapper) {
                 SwapperAction(_tilemap, _tilePosition);
+            }
+            else if (_tile == teleporter) {
+                TeleporterAction(_tilePosition);
+            }
+        }
+
+        private void TeleporterAction(Vector3Int _tilePosition) {
+            foreach (Refrences.TileInteraction tileInteraction in BlackBoard.refrences.tilesInteractions) {
+                if (tileInteraction.tile == TilemapTools.InteractionsTypes.Teleporter && tileInteraction.position == (Vector2Int)_tilePosition) {
+                    BlackBoard.player.moveController.SetPosition((Vector3Int)tileInteraction.targetPosition);
+                }
             }
         }
 
@@ -64,7 +83,7 @@ namespace Assets.TilemapTools {
 
 
     public static class TilemapTools {
-        public enum Tiles { Trap, Key, ClosedExit, OpenExit }
+        public enum InteractionsTypes { Button, ClosedExit, OpenExit, Teleporter }
         public static Vector3Int VectorToInt(Vector3 _vector) {
             return new Vector3Int(Mathf.RoundToInt(_vector.x), Mathf.RoundToInt(_vector.y), Mathf.RoundToInt(_vector.z));
         }
@@ -83,7 +102,7 @@ namespace Assets.TilemapTools {
             return bounds;
         }
 
-        public static Vector2Int GetInteraction(TilemapTools.Tiles _tileType, Vector3Int _tilePosition) {
+        public static Vector2Int GetInteractions(TilemapTools.InteractionsTypes _tileType, Vector3Int _tilePosition) {
             foreach (Refrences.TileInteraction tileInteraction in BlackBoard.refrences.tilesInteractions) {
                 if(tileInteraction.tile == _tileType && tileInteraction.position == (Vector2Int)_tilePosition) {
                     return tileInteraction.targetPosition;
