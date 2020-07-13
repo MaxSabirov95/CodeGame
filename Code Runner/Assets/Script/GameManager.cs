@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour {
     Refrences refrences;
 
 
-    int currentTrapLayer = 0;
+    int currentTrapLayer = 1;
 
     private void Awake() {
         BlackBoard.gameManager = this;
