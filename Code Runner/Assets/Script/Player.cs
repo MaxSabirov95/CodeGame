@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Assets.TilemapTools;
 
 
 //Class made mainly for player controls and tile checking.
@@ -16,8 +17,8 @@ public class Player : MonoBehaviour {
                                     (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) ? 1 : 0)
                                   - (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow) ? 1 : 0));
         if (((input.x != 0 && input.y == 0) || (input.x == 0 && input.y !=0))  && (canMove)) {
-            targetPosition = VectorToInt(new Vector3(transform.position.x + input.x, transform.position.y + input.y, 0f));
-            if (checkWall(targetPosition) && transform.position == VectorToInt(transform.position)) {
+            targetPosition = TilemapTools.VectorToInt(new Vector3(transform.position.x + input.x, transform.position.y + input.y, 0f));
+            if (checkWall(targetPosition) && transform.position == TilemapTools.VectorToInt(transform.position)) {
                 MoveToPosition();
             }
         }
@@ -46,7 +47,7 @@ public class Player : MonoBehaviour {
             if (tilemap.isActiveAndEnabled) {
                 TileBase tile = tilemap.GetTile(targetPosition);
                 if (tile) {
-                    BlackBoard.tiles.GeneralTileAction(tile);
+                    BlackBoard.tiles.GeneralTileAction(tile, targetPosition);
                 }
             }
         }
@@ -57,12 +58,5 @@ public class Player : MonoBehaviour {
         yield return new WaitForSeconds(timeMovement);
         checkTile(targetPosition);
         canMove = true;
-    }
-
-    Vector3Int VectorToInt(Vector3 vector) {
-        return new Vector3Int(Mathf.RoundToInt(vector.x), Mathf.RoundToInt(vector.y), Mathf.RoundToInt(vector.z));
-    }
-    Vector2Int VectorToInt(Vector2 vector) {
-        return (Vector2Int)VectorToInt((Vector3)vector);
     }
 }
