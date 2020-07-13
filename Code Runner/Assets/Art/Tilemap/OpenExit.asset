@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: cyber-securewrwerewrity (2)
+  m_Name: OpenExit
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: f28de0672c565c54dba0ba4513d89c8a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 911758320aeafbd45ac7d315e9a1fcd2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

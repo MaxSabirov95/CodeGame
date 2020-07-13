@@ -39,10 +39,8 @@ namespace Assets.TilemapTools {
 
         private void KeyAction() {
             foreach (Tilemap tilemap in BlackBoard.refrences.generalLayers) {
-                Bounds tilemapBounds = TilemapTools.GetBounds(tilemap);
-                for (int i = 0; i < ; i++) {
-
-                }
+                tilemap.SwapTile(closedExitTile, openExitTile);
+                tilemap.SwapTile(key, null);
             }
         }
 
