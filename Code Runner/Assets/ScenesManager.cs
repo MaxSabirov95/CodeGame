@@ -45,7 +45,7 @@ public class ScenesManager : MonoBehaviour
 
     public void GoToChooseLevels()
     {
-        SceneManager.LoadScene(6);
+        SceneManager.LoadScene("Levels");
     }
     public void GoToMainMenu()
     {

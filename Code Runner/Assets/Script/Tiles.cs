@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace Assets.Tiles {
+namespace Assets.TilemapTools {
 
     [Serializable]
     public class Tiles {
@@ -10,6 +10,10 @@ namespace Assets.Tiles {
         TileBase trap1;
         [SerializeField]
         TileBase trap2;
+        [SerializeField]
+        TileBase key;
+        [SerializeField]
+        TileBase closedExitTile;
         [SerializeField]
         TileBase openExitTile;
 
@@ -25,9 +29,20 @@ namespace Assets.Tiles {
         public void GeneralTileAction(TileBase tile) {
             if (tile == openExitTile) {
                 NextLevel();
+            }if (tile == key) {
+                KeyAction();
             }
             else {
                 throw new NotImplementedException();
+            }
+        }
+
+        private void KeyAction() {
+            foreach (Tilemap tilemap in BlackBoard.refrences.generalLayers) {
+                Bounds tilemapBounds = TilemapTools.GetBounds(tilemap);
+                for (int i = 0; i < ; i++) {
+
+                }
             }
         }
 
@@ -39,4 +54,26 @@ namespace Assets.Tiles {
             BlackBoard.gameManager.Death();
         }
     }
+
+
+
+    public static class TilemapTools {
+        public static Vector3Int VectorToInt(Vector3 vector) {
+            return new Vector3Int(Mathf.RoundToInt(vector.x), Mathf.RoundToInt(vector.y), Mathf.RoundToInt(vector.z));
+        }
+
+        public static Vector2Int VectorToInt(Vector2 vector) {
+            return (Vector2Int)VectorToInt((Vector3)vector);
+        }
+
+        public static Bounds GetBounds(Tilemap tilemap) {
+            BlackBoard.refrences.walls.CompressBounds();
+            Bounds tempBounds = tilemap.gameObject.GetComponent<TilemapRenderer>().bounds;
+            Bounds bounds = new Bounds();
+            bounds.min = tilemap.gameObject.transform.TransformPoint(tempBounds.min) + (Vector3)Vector2.one * 0.5f;
+            bounds.max = tilemap.gameObject.transform.TransformPoint(tempBounds.max) + (Vector3)Vector2.one * 0.5f;
+            return bounds;
+        }
+    }
+
 }
